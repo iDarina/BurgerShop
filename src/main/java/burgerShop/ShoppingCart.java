@@ -41,7 +41,15 @@ public class ShoppingCart {
             System.out.println("item removed");
         }
     }
+    public double calculateTotal(){
+     double total = 0.0;
 
+     for(MenuItems item: items){
+       total = total + item.getPrice() * item.getQuanity();
+
+    }
+    return total;
+    }
     public void printReceipt() {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy"); //Date and time formatting
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss a");
