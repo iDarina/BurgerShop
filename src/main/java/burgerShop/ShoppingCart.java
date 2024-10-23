@@ -35,6 +35,13 @@ public class ShoppingCart {
         this.itemsInCart = itemsInCart;
     }
 
+    public void addItem(MenuItems item){
+        items.add(item);
+        // saving time update price when item is added, uncomment this(below) out when getPrice method is made
+         totalPrice += item.getPrice();
+        itemsInCart += 1;
+    }
+
     public void removeItems(MenuItems item) {
         if (items != null && items.contains(item)) {
             items.remove(item);
