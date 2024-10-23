@@ -24,7 +24,6 @@ public class Main {
         customer.setState(state);
 
         System.out.println("\nWelcome " + customer.getName() + " from " + customer.getState() + "!");
-        System.out.println("Let's start your shopping experience.\n");
 
         // Menu loop
         boolean running = true;
