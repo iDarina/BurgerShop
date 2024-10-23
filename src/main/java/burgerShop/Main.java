@@ -22,6 +22,7 @@ public class Main {
                 cart.addItem(soda);
 
                 cart.removeItems(burger);
+                cart.removeItems(fries);
 
                 cart.printReceipt(customer);
             }

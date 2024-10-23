@@ -48,6 +48,9 @@ public class ShoppingCart {
          totalPrice += item.getPrice() * item.getQuanity();
         itemsInCart += item.getQuanity();
         System.out.println("Total items in your cart: " + itemsInCart);
+        for(MenuItems i : items){
+            System.out.println(i.getItemName());
+        }
     }
 
     public void removeItems(MenuItems item) {
