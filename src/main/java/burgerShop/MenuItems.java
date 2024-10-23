@@ -4,7 +4,7 @@ public class MenuItems {
 
     private String itemName;
     private double price;
-    private int quanity;
+    private int quantity;
     public static int stock;
 
 
@@ -29,11 +29,11 @@ public class MenuItems {
 
 
     public int getQuanity() {
-        return quanity;
+        return quantity;
     }
 
 
     public void setQuanity(int quanity) {
-        this.quanity = quanity;
+        this.quantity = quanity;
     }
 }

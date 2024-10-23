@@ -11,6 +11,14 @@ public class ShoppingCart {
     private int itemsInCart;
 
 
+    public ShoppingCart() {
+        this.items = new ArrayList<>();
+        this.totalPrice = 0.0;
+        this.itemsInCart = 0;
+    }
+
+
+
     public ArrayList<MenuItems> getItems() {
         return items;
     }
@@ -37,26 +45,26 @@ public class ShoppingCart {
 
     public void addItem(MenuItems item){
         items.add(item);
-        // saving time update price when item is added, uncomment this(below) out when getPrice method is made
-         totalPrice += item.getPrice();
-        itemsInCart += 1;
+         totalPrice += item.getPrice() * item.getQuanity();
+        itemsInCart += item.getQuanity();
+        System.out.println("Total items in your cart: " + itemsInCart);
     }
 
     public void removeItems(MenuItems item) {
         if (items != null && items.contains(item)) {
             items.remove(item);
             System.out.println("item removed");
+            System.out.println("Total items in your cart: " + itemsInCart);
         }
     }
     public double calculateTotal(){
      double total = 0.0;
-
      for(MenuItems item: items){
-       total = total + item.getPrice() * item.getQuanity();
-
+         total = total + item.getPrice() * item.getQuanity();
     }
     return total;
     }
+
     public void printReceipt(Customer customer) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy"); // Date formatting
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss a"); // Time formatting
