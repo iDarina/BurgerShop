@@ -18,7 +18,6 @@ public class ShoppingCart {
     }
 
 
-
     public ArrayList<MenuItems> getItems() {
         return items;
     }
@@ -43,53 +42,86 @@ public class ShoppingCart {
         this.itemsInCart = itemsInCart;
     }
 
-    public void addItem(MenuItems item){
+    public void addItem(MenuItems item) {
         items.add(item);
-         totalPrice += item.getPrice() * item.getQuanity();
+        totalPrice += item.getPrice() * item.getQuanity();
         itemsInCart += item.getQuanity();
         System.out.println("Total items in your cart: " + itemsInCart);
-        for(MenuItems i : items){
-            System.out.println(i.getItemName());
+        printCart();
+    }
+
+        public void removeItems (MenuItems item){
+            if (items != null && items.contains(item)) {
+                items.remove(item);
+                itemsInCart--;
+                System.out.println("item removed");
+                System.out.println("Total items in your cart: " + itemsInCart);
+                printCart();
+            }
+        }
+        public double calculateTotal () {
+            double total = 0.0;
+            for (MenuItems item : items) {
+                total = total + item.getPrice() * item.getQuanity();
+            }
+            return total;
+        }
+        public void printCart(){
+            boolean hasBurger = false;
+            boolean hasSoda = false;
+            boolean hasFries = false;
+
+            if (items.isEmpty()) {
+                System.out.println("Your cart is empty.");
+                return;
+            }
+
+            for (MenuItems i : items) {
+                if (i.getItemName().equals("Burger")) {
+                    hasBurger = true;
+                    System.out.println("You have " + i.getQuanity() + " order of Burger(s)");
+                } else if (i.getItemName().equals("Soda")) {
+                    hasSoda = true;
+                    System.out.println("You have " + i.getQuanity() + " order of Soda(s)");
+                } else if (i.getItemName().equals("Fries")) {
+                    hasFries = true;
+                    System.out.println("You have " + i.getQuanity() + " order of Fries");
+                }
+            }
+
+            if (!hasBurger) {
+                System.out.println("No burger today?");
+            }
+            if (!hasSoda) {
+                System.out.println("No soda today?");
+            }
+            if (!hasFries) {
+                System.out.println("No fries today?");
+            }
+        }
+
+        public void printReceipt (Customer customer){
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy"); // Date formatting
+            SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss a"); // Time formatting
+
+            Date date = new Date(); // Current date and time
+            String currentDate = dateFormatter.format(date);
+            String currentTime = timeFormatter.format(date);
+
+            double taxRate = customer.getTaxRate(customer.getState()); // Get tax rate based on state
+            double subtotal = calculateTotal(); // Calculate the subtotal
+            double tax = subtotal * taxRate; // Calculate tax
+            double totalWithTax = subtotal + tax; // Total with tax
+
+            System.out.println("====================");
+            System.out.println("DATE     " + currentDate);
+            System.out.println("TIME     " + currentTime);
+            System.out.println("====================");
+            System.out.printf("AMT      $%.2f%n", subtotal);
+            System.out.printf("TAX      $%.2f%n", tax);
+            System.out.printf("SALE     $%.2f%n", totalWithTax);
+            System.out.println("====================");
+            System.out.println("Thank you for your purchase!");
         }
     }
 
-    public void removeItems(MenuItems item) {
-        if (items != null && items.contains(item)) {
-            items.remove(item);
-            itemsInCart--;
-            System.out.println("item removed");
-            System.out.println("Total items in your cart: " + itemsInCart);
-        }
-    }
-    public double calculateTotal(){
-     double total = 0.0;
-     for(MenuItems item: items){
-         total = total + item.getPrice() * item.getQuanity();
-    }
-    return total;
-    }
-
-    public void printReceipt(Customer customer) {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy"); // Date formatting
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss a"); // Time formatting
-
-        Date date = new Date(); // Current date and time
-        String currentDate = dateFormatter.format(date);
-        String currentTime = timeFormatter.format(date);
-
-        double taxRate = customer.getTaxRate(customer.getState()); // Get tax rate based on state
-        double subtotal = calculateTotal(); // Calculate the subtotal
-        double tax = subtotal * taxRate; // Calculate tax
-        double totalWithTax = subtotal + tax; // Total with tax
-
-        System.out.println("====================");
-        System.out.println("DATE     " + currentDate);
-        System.out.println("TIME     " + currentTime);
-        System.out.println("====================");
-        System.out.printf("AMT      $%.2f%n", subtotal);
-        System.out.printf("TAX      $%.2f%n", tax);
-        System.out.printf("SALE     $%.2f%n", totalWithTax);
-        System.out.println("====================");
-        System.out.println("Thank you for your purchase!");
-    }
-}
