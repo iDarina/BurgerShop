@@ -1,5 +1,6 @@
 package burgerShop;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class ShoppingCart {
@@ -30,5 +31,12 @@ public class ShoppingCart {
 
     public void setItemsInCart(int itemsInCart) {
         this.itemsInCart = itemsInCart;
+    }
+
+    public void removeItems(MenuItems item) {
+        if (items != null && items.contains(item)) {
+            items.remove(item);
+            System.out.println("item removed");
+        }
     }
 }
