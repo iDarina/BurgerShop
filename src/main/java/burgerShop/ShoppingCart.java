@@ -92,4 +92,17 @@ public class ShoppingCart {
         System.out.println("====================");
         System.out.println("Thank you for your purchase!");
     }
+
+    public double priceLookup(String itemName) {
+        switch (itemName.toLowerCase()) {
+            case "burger":
+                return new Burger().getPrice();
+            case "fries":
+                return new Fries().getPrice();
+            case "soda":
+                return new Soda().getPrice();
+            default:
+                return 4.0;
+        }
+    }
 }
