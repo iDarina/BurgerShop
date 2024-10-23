@@ -1,11 +1,6 @@
 ![image](https://github.com/user-attachments/assets/8a11a036-7e94-4253-9e41-7f60ec59953f)
 
 
-#### To pull latest code - ```bash
-     git checkout main
-     git pull origin main
-     ```
-
 
 ### **Step 1: Cloning the Repository to Your IntelliJ**
 1. **Obtain the Repository URL:**
