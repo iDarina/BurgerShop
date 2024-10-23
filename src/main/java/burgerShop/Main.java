@@ -1,43 +1,127 @@
 package burgerShop;
 
-import java.awt.*;
+import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
 
-                Customer customer = new Customer();
-                customer.setName("John Doe");
-                customer.setState("New Jersey");
+        // Create a scanner to read user input
+        Scanner scanner = new Scanner(System.in);
 
-                ShoppingCart cart = new ShoppingCart();
-                customer.setShoppingCart(cart);
+        // Set up customer and shopping cart
+        Customer customer = new Customer();
+        ShoppingCart cart = new ShoppingCart();
+        customer.setShoppingCart(cart);
 
-                MenuItems nuggets = new MenuItems("nuggets");
-                nuggets.setQuanity(1);
-                MenuItems candy = new MenuItems("candy");
-                candy.setQuanity(1);
-                Burger burger = new Burger();
-                burger.setQuanity(1);
-                Fries fries = new Fries();
-                fries.setQuanity(1);
-                Soda soda = new Soda();
-                soda.setQuanity(1);
+        // Ask for customer information
+        System.out.print("Please enter your name: ");
+        String name = scanner.nextLine();
+        customer.setName(name);
 
-                cart.addItem(burger);
-                cart.addItem(fries);
-                cart.addItem(soda);
-                cart.addItem(nuggets);
-                cart.addItem(candy);
+        System.out.print("Please enter your state: ");
+        String state = scanner.nextLine();
+        customer.setState(state);
 
-                cart.removeItems(burger);
-                cart.removeItems(fries);
+        System.out.println("\nWelcome " + customer.getName() + " from " + customer.getState() + "!");
+        System.out.println("Let's start your shopping experience.\n");
 
-        System.out.println(cart.priceLookup("burger"));
-        System.out.println(cart.priceLookup("nuggets"));
+        // Menu loop
+        boolean running = true;
+
+        while (running) {
+            // Display menu options
+            System.out.println("Please choose an option:");
+            System.out.println("1. Add item to cart");
+            System.out.println("2. Remove item from cart");
+            System.out.println("3. Check item price");
+            System.out.println("4. View cart");
+            System.out.println("5. Checkout and print receipt");
+            System.out.print("Enter your choice: ");
 
 
-                cart.printReceipt(customer);
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1: // Add item
+                    System.out.println("Enter the item you want to add (burger, fries, soda, or other): ");
+                    String addItem = scanner.nextLine().toLowerCase();
+
+                    MenuItems itemToAdd;
+                    switch (addItem) {
+                        case "burger":
+                            itemToAdd = new Burger();
+                            break;
+                        case "fries":
+                            itemToAdd = new Fries();
+                            break;
+                        case "soda":
+                            itemToAdd = new Soda();
+                            break;
+                        default:
+                            System.out.println("Enter a name for your custom item:");
+                            String customItemName = scanner.nextLine();
+                            itemToAdd = new MenuItems(customItemName);
+                    }
+
+                    System.out.println("Enter quantity: ");
+                    int quantity = scanner.nextInt();
+                    itemToAdd.setQuanity(quantity);
+                    cart.addItem(itemToAdd);
+                    break;
+
+                case 2: // Remove item
+                    System.out.println("Enter the item you want to remove (burger, fries, soda, or other): ");
+                    String removeItem = scanner.nextLine().toLowerCase();
+                    MenuItems itemToRemove;
+                    switch (removeItem) {
+                        case "burger":
+                            itemToRemove = new Burger();
+                            break;
+                        case "fries":
+                            itemToRemove = new Fries();
+                            break;
+                        case "soda":
+                            itemToRemove = new Soda();
+                            break;
+                        default:
+                            System.out.println("Enter the name of the item to remove: ");
+                            String customRemoveItem = scanner.nextLine();
+                            itemToRemove = new MenuItems(customRemoveItem);
+                    }
+
+                    cart.removeItems(itemToRemove);
+                    break;
+
+                case 3: // Check item price
+                    System.out.println("Enter the item name to check the price: ");
+                    String itemName = scanner.nextLine().toLowerCase();
+                    double price = cart.priceLookup(itemName);
+                    System.out.printf("The price of %s is $%.2f%n", itemName, price);
+                    break;
+
+                case 4: // View cart
+                    cart.printCart();
+                    break;
+
+                case 5: // Checkout and print receipt
+                    cart.printReceipt(customer);
+                    running = false; // Exit the program
+                    break;
+
+                default:
+                    System.out.println("Invalid option. Please try again.");
+                    break;
             }
+
+            System.out.println();
         }
+
+        scanner.close();
+        System.out.println("Thank you for shopping with us!");
+    }
+}
+
 
 

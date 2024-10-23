@@ -45,12 +45,10 @@ public class ShoppingCart {
 
     public void addItem(MenuItems item){
         items.add(item);
-         totalPrice += item.getPrice() * item.getQuanity();
+        totalPrice += item.getPrice() * item.getQuanity();
         itemsInCart += item.getQuanity();
         System.out.println("Total items in your cart: " + itemsInCart);
-        for(MenuItems i : items){
-            System.out.println(i.getItemName());
-        }
+        printCart();
     }
 
     public void removeItems(MenuItems item) {
@@ -59,6 +57,7 @@ public class ShoppingCart {
             itemsInCart--;
             System.out.println("item removed");
             System.out.println("Total items in your cart: " + itemsInCart);
+            printCart();
         }
     }
     public double calculateTotal(){
@@ -67,6 +66,45 @@ public class ShoppingCart {
          total = total + item.getPrice() * item.getQuanity();
     }
     return total;
+    }
+
+    public void printCart(){
+        boolean hasBurger = false;
+        boolean hasSoda = false;
+        boolean hasFries = false;
+
+        if (items.isEmpty()) {
+            System.out.println("Your cart is empty.");
+            return;
+        }
+
+        for (MenuItems i : items) {
+            if (i.getItemName().equals("Burger")) {
+                hasBurger = true;
+                System.out.println("You have " + i.getQuanity() + " order of Burger(s)");
+            } else if (i.getItemName().equals("Soda")) {
+                hasSoda = true;
+                System.out.println("You have " + i.getQuanity() + " order of Soda(s)");
+            } else if (i.getItemName().equals("Fries")) {
+                hasFries = true;
+                System.out.println("You have " + i.getQuanity() + " order of Fries");
+            } else {
+                // Print other generic items (nuggets, candy, etc.) - Treasure
+                System.out.println("You have " + i.getQuanity() + " order of " + i.getItemName());
+            }
+        }
+        System.out.println();
+
+        if (!hasBurger) {
+            System.out.println("No burger today?");
+        }
+        if (!hasSoda) {
+            System.out.println("No soda today?");
+        }
+        if (!hasFries) {
+            System.out.println("No fries today?");
+        }
+        System.out.println();
     }
 
     public void printReceipt(Customer customer) {
