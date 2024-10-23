@@ -53,6 +53,7 @@ public class ShoppingCart {
     public void removeItems(MenuItems item) {
         if (items != null && items.contains(item)) {
             items.remove(item);
+            itemsInCart--;
             System.out.println("item removed");
             System.out.println("Total items in your cart: " + itemsInCart);
         }
