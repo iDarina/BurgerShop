@@ -57,22 +57,24 @@ public class ShoppingCart {
     }
     return total;
     }
-    public void printReceipt() {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy"); //Date and time formatting
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss a");
+    public void printReceipt(Customer customer) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy"); // Date formatting
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss a"); // Time formatting
 
-        Date date = new Date();
+        Date date = new Date(); // Current date and time
         String currentDate = dateFormatter.format(date);
         String currentTime = timeFormatter.format(date);
 
-        double tax = totalPrice * 0.10; // NEED TO BE REPLACED WITH TAX RATE
-        double totalWithTax = totalPrice + tax;
+        double taxRate = customer.getTaxRate(customer.getState()); // Get tax rate based on state
+        double subtotal = calculateTotal(); // Calculate the subtotal
+        double tax = subtotal * taxRate; // Calculate tax
+        double totalWithTax = subtotal + tax; // Total with tax
 
         System.out.println("====================");
         System.out.println("DATE     " + currentDate);
         System.out.println("TIME     " + currentTime);
         System.out.println("====================");
-        System.out.printf("AMT      $%.2f%n", totalPrice);
+        System.out.printf("AMT      $%.2f%n", subtotal);
         System.out.printf("TAX      $%.2f%n", tax);
         System.out.printf("SALE     $%.2f%n", totalWithTax);
         System.out.println("====================");
