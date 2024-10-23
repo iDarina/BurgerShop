@@ -7,6 +7,13 @@ public class MenuItems {
     private int quantity;
     public static int stock;
 
+    public MenuItems() {
+    }
+
+    public MenuItems(String name) {
+        this.itemName = name;
+        setPrice(4.0);
+    }
 
     public String getItemName() {
         return itemName;
