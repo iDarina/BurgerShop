@@ -1,6 +1,9 @@
 package burgerShop;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ShoppingCart {
     private ArrayList<MenuItems> items;
@@ -37,5 +40,27 @@ public class ShoppingCart {
             items.remove(item);
             System.out.println("item removed");
         }
+    }
+
+    public void printReceipt() {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy"); //Date and time formatting
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss a");
+
+        Date date = new Date();
+        String currentDate = dateFormatter.format(date);
+        String currentTime = timeFormatter.format(date);
+
+        double tax = totalPrice * 0.10; // NEED TO BE REPLACED WITH TAX RATE
+        double totalWithTax = totalPrice + tax;
+
+        System.out.println("====================");
+        System.out.println("DATE     " + currentDate);
+        System.out.println("TIME     " + currentTime);
+        System.out.println("====================");
+        System.out.printf("AMT      $%.2f%n", totalPrice);
+        System.out.printf("TAX      $%.2f%n", tax);
+        System.out.printf("SALE     $%.2f%n", totalWithTax);
+        System.out.println("====================");
+        System.out.println("Thank you for your purchase!");
     }
 }
