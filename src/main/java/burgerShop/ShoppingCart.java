@@ -53,37 +53,37 @@ public class ShoppingCart {
 
 
     public void removeItems(MenuItems item, int quantityToRemove) {
+       //Check to see if the cart is empty if it is then sout your cart is empty
         if (items.isEmpty()) {
             System.out.println("Your cart is empty.");
             return;
-        }
-
-        boolean itemRemoved = false;
-        Iterator<MenuItems> iterator = items.iterator();
+        }// Check to see if the cart is empty if it is then sout your cart is empty
+        boolean itemRemoved = false;// using a flag to track whether or not the item needs to be remove
+        Iterator<MenuItems> iterator = items.iterator(); //to check through the items in the cart
 
         while (iterator.hasNext()) {
-            MenuItems i = iterator.next();
-            if (i.getItemName().equalsIgnoreCase(item.getItemName())) {
-                if (i.getQuanity() > quantityToRemove) {
-                    i.setQuanity(i.getQuanity() - quantityToRemove);
-                    itemsInCart = itemsInCart -quantityToRemove;
-
-                    System.out.println(quantityToRemove + " " + i.getItemName() + "(s) removed from your cart.");
+            MenuItems i = iterator.next(); // looping though the items of the cart to see if we have items
+            if (i.getItemName().equalsIgnoreCase(item.getItemName())) { //comparing and ignoring case so that Burger and burger are the same
+                if (i.getQuanity() > quantityToRemove) { // as long as quanity is greater than quantityToRemove
+                    i.setQuanity(i.getQuanity() - quantityToRemove);// that number reduces the item's quantity
+                    itemsInCart = itemsInCart -quantityToRemove;// reduces the total number of items in the cart (itemsInCart) by that amount.
+                    System.out.println(quantityToRemove + " " + i.getItemName() + "(s) removed from your cart."); // print how many items were removed
+                //If the quantity is less than or equal to the amount to remove:
                 } else {
                     itemsInCart = itemsInCart - i.getQuanity();
                     iterator.remove();
                     System.out.println(i.getQuanity() + " " + i.getItemName() + "(s) removed from your cart.");
                 }
-                itemRemoved = true;
+                itemRemoved = true;// mark the item as removed setting the flag true
                 break;
             }
         }
 
         if (!itemRemoved) {
-            System.out.println("Item not found in the cart.");
+            System.out.println("Item not found in the cart.");// if the item wasn't found in the cart,example if you wanted to remove coco bread, but you only put soda in the cart :p
         }
 
-        System.out.println("Total items in your cart: " + itemsInCart);
+        System.out.println("Total items in your cart: " + itemsInCart);// printing out the total of items in the cart
     }
 
 
