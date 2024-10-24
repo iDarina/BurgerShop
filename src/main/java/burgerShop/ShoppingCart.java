@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 public class ShoppingCart {
     private ArrayList<MenuItems> items;
@@ -16,7 +17,6 @@ public class ShoppingCart {
         this.totalPrice = 0.0;
         this.itemsInCart = 0;
     }
-
 
 
     public ArrayList<MenuItems> getItems() {
@@ -43,7 +43,7 @@ public class ShoppingCart {
         this.itemsInCart = itemsInCart;
     }
 
-    public void addItem(MenuItems item){
+    public void addItem(MenuItems item) {
         items.add(item);
         totalPrice += item.getPrice() * item.getQuanity();
         itemsInCart += item.getQuanity();
@@ -51,15 +51,43 @@ public class ShoppingCart {
         printCart();
     }
 
-    public void removeItems(MenuItems item) {
-        if (items != null && items.contains(item)) {
-            items.remove(item);
-            itemsInCart--;
-            System.out.println("item removed");
-            System.out.println("Total items in your cart: " + itemsInCart);
-            printCart();
+
+    public void removeItems(MenuItems item, int quantityToRemove) {
+        if (items.isEmpty()) {
+            System.out.println("Your cart is empty.");
+            return;
         }
+
+        boolean itemRemoved = false;
+        Iterator<MenuItems> iterator = items.iterator();
+
+        while (iterator.hasNext()) {
+            MenuItems i = iterator.next();
+            if (i.getItemName().equalsIgnoreCase(item.getItemName())) {
+                if (i.getQuanity() > quantityToRemove) {
+                    i.setQuanity(i.getQuanity() - quantityToRemove);
+                    itemsInCart = itemsInCart -quantityToRemove;
+
+                    System.out.println(quantityToRemove + " " + i.getItemName() + "(s) removed from your cart.");
+                } else {
+                    itemsInCart = itemsInCart - i.getQuanity();
+                    iterator.remove();
+                    System.out.println(i.getQuanity() + " " + i.getItemName() + "(s) removed from your cart.");
+                }
+                itemRemoved = true;
+                break;
+            }
+        }
+
+        if (!itemRemoved) {
+            System.out.println("Item not found in the cart.");
+        }
+
+        System.out.println("Total items in your cart: " + itemsInCart);
     }
+
+
+
     public double calculateTotal(){
      double total = 0.0;
      for(MenuItems item: items){
@@ -143,4 +171,7 @@ public class ShoppingCart {
                 return 4.0;
         }
     }
+
+
 }
+
