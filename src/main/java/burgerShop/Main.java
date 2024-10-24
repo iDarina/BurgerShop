@@ -73,6 +73,11 @@ public class Main {
                 case 2: // Remove item
                     System.out.println("Enter the item you want to remove (burger, fries, soda, or other): ");
                     String removeItem = scanner.nextLine().toLowerCase();
+
+                    System.out.println("How many do you want to remove?");
+                    int quantityToRemove = scanner.nextInt();
+                    scanner.nextLine();
+
                     MenuItems itemToRemove;
                     switch (removeItem) {
                         case "burger":
@@ -90,7 +95,7 @@ public class Main {
                             itemToRemove = new MenuItems(customRemoveItem);
                     }
 
-                    cart.removeItems(itemToRemove);
+                    cart.removeItems(itemToRemove, quantityToRemove);
                     break;
 
                 case 3: // Check item price
